@@ -8,18 +8,18 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import theme from '../theme';
 
 const Home: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? theme.lightGray : theme.primary,
   };
 
   return (
-    <SafeAreaView style={[backgroundStyle.backgroundColor, {flex: 1}]}>
+    <SafeAreaView
+      style={[{backgroundColor: backgroundStyle.backgroundColor}, {flex: 1}]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"

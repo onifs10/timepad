@@ -1,4 +1,5 @@
-export type RootStackParamList = {
+export type BottomNavParamList = {
   Home: undefined;
-  Sample: undefined;
+  Analytics: undefined;
+  Add: undefined;
 };
