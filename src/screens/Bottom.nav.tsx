@@ -37,6 +37,7 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
 
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
+              // @ts-ignore
               navigation.navigate({name: route.name, merge: true});
             }
           };
@@ -50,7 +51,7 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
 
           //home
           let routeName = route.name.toLowerCase();
-          if (routeName === 'home') {
+          if (routeName === 'task') {
             return (
               <Pressable
                 key={index}

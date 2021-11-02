@@ -8,7 +8,7 @@ type AnalyticsProps = NativeStackScreenProps<BottomNavParamList, 'Analytics'>;
 
 const Analytics: React.FC<AnalyticsProps> = ({navigation}) => {
   const goHome = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Task');
   };
   return (
     <View style={styles.pageStyle}>

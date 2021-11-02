@@ -1,5 +1,5 @@
 export type BottomNavParamList = {
-  Home: undefined;
+  Task: undefined;
   Analytics: undefined;
   Add: undefined;
 };

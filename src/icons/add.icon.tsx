@@ -29,5 +29,3 @@ const AddIcon: React.FC<React.PropsWithoutRef<IconProps>> = ({
 };
 
 export default AddIcon;
-
-// fill = '#070417';
