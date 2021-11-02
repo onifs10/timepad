@@ -56,7 +56,8 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
               <Pressable
                 key={index}
                 onPress={onPress}
-                onLongPress={onLongPress}>
+                onLongPress={onLongPress}
+                style={styles.nav}>
                 <ClockIcon
                   stroke={isFocused ? theme.white : theme.gray}
                   fill={isFocused ? theme.primary : theme.white}
@@ -71,7 +72,8 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
               <Pressable
                 key={index}
                 onPress={onPress}
-                onLongPress={onLongPress}>
+                onLongPress={onLongPress}
+                style={styles.nav}>
                 <AddIcon
                   stroke={theme.white}
                   fill={theme.primary}
@@ -86,7 +88,8 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
               <Pressable
                 key={index}
                 onPress={onPress}
-                onLongPress={onLongPress}>
+                onLongPress={onLongPress}
+                style={styles.nav}>
                 <PieIcon
                   stroke={isFocused ? theme.white : theme.gray}
                   fill={isFocused ? theme.primary : theme.white}
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     width: '98%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+
     padding: 10,
     marginHorizontal: 'auto',
     minHeight: 70,
@@ -128,5 +131,10 @@ const styles = StyleSheet.create({
     elevation: 2,
     width: '100%',
     backgroundColor: theme.lightGray,
+  },
+  nav: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
