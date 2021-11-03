@@ -1,34 +1,23 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import theme from '../theme';
+import {NavList} from '../types/navigation.types';
 
-const Home: React.FC = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+type HomeProps = NativeStackScreenProps<NavList, 'Task'>;
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? theme.lightGray : theme.primary,
-  };
-
+const Home: React.FC<HomeProps> = ({navigation}) => {
   return (
-    <SafeAreaView
-      style={[{backgroundColor: backgroundStyle.backgroundColor}, {flex: 1}]}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View style={styles.sectionContainer}>
-          <Text>sample</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      style={{backgroundColor: theme.lightGray}}>
+      <View style={styles.sectionContainer}>
+        <Text>sample</Text>
+        <Pressable onPress={() => navigation.navigate('Test')}>
+          <Text style={{color: theme.primary}}>open modal</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
   );
 };
 

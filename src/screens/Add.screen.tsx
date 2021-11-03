@@ -1,14 +1,15 @@
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomNavParamList} from '../types/navigation.types';
+import {NavList} from '../types/navigation.types';
+
 import theme from '../theme';
 
-type AddProps = NativeStackScreenProps<BottomNavParamList, 'Add'>;
+type AddProps = NativeStackScreenProps<NavList, 'Add'>;
 
 const Add: React.FC<AddProps> = ({navigation}) => {
   const goHome = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Task');
   };
   return (
     <View style={styles.pageStyle}>

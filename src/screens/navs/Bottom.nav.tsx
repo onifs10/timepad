@@ -1,10 +1,10 @@
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import {View, Pressable, Text, StyleSheet} from 'react-native';
-import AddIcon from '../icons/add.icon';
-import ClockIcon from '../icons/clock.icon';
-import PieIcon from '../icons/pieChart.icon';
-import theme from '../theme';
+import AddIcon from '../../icons/add.icon';
+import ClockIcon from '../../icons/clock.icon';
+import PieIcon from '../../icons/pieChart.icon';
+import theme from '../../theme';
 // import theme from '../theme';
 // import AddIcon from '../icons/add.icon';
 // import ClockIcon from '../icons/clock.icon';

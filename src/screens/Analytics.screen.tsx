@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomNavParamList} from '../types/navigation.types';
+import {NavList} from '../types/navigation.types';
 import theme from '../theme';
 
-type AnalyticsProps = NativeStackScreenProps<BottomNavParamList, 'Analytics'>;
+type AnalyticsProps = NativeStackScreenProps<NavList, 'Analytics'>;
 
 const Analytics: React.FC<AnalyticsProps> = ({navigation}) => {
   const goHome = () => {

@@ -12,6 +12,8 @@ target 'timepad' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'timepadTests' do
     inherit! :complete
     # Pods for testing
