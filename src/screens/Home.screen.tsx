@@ -1,6 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import HeadlineTask from '../components/headlineTask.component';
+import TodayTasks from '../components/todayTasks.component';
 import theme from '../theme';
 import {NavList} from '../types/navigation.types';
 
@@ -8,35 +10,25 @@ type HomeProps = NativeStackScreenProps<NavList, 'Task'>;
 
 const Home: React.FC<HomeProps> = ({navigation}) => {
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      style={{backgroundColor: theme.lightGray}}>
+    <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <Text>sample</Text>
-        <Pressable onPress={() => navigation.navigate('Test')}>
-          <Text style={{color: theme.primary}}>open modal</Text>
-        </Pressable>
+        <HeadlineTask navigation={navigation} />
       </View>
-    </ScrollView>
+      <View style={[styles.sectionContainer, styles.taskList]}>
+        <TodayTasks navigation={navigation} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {backgroundColor: theme.lightGray, flex: 1},
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  taskList: {
+    flex: 1,
+    paddingTop: 10,
   },
 });
 

@@ -16,7 +16,7 @@ const BottomNavigator: React.FC = () => {
     <SafeAreaView style={styles.safeAreaView}>
       <StatusBar barStyle={'dark-content'} backgroundColor={theme.lightGray} />
       <BottomTabs.Navigator
-        initialRouteName="Add"
+        initialRouteName="Task"
         tabBar={props => <BottomNav {...props} />}
         screenOptions={{
           tabBarStyle: {

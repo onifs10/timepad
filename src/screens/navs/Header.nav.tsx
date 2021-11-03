@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.lightGray,
     width: '100%',
     height: 60,
-    padding: 15,
+    padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -41,12 +41,13 @@ const styles = StyleSheet.create({
   text: {
     color: theme.primary,
     fontSize: 24,
+    fontFamily: theme.RubikSemiBold,
     fontWeight: '500',
   },
   sides: {
     flexDirection: 'row',
     height: '100%',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   left: {
     justifyContent: 'flex-end',
