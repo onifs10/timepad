@@ -53,14 +53,14 @@ const TodayTasks: React.FC<PropsWithoutRef<TodayTasksProps>> = ({
   navigation,
 }) => {
   const handleNavigation = (id: number) => {
-    console.warn(id);
+    navigation.navigate('Test', {id});
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTextOne}>Today</Text>
-        <Pressable onPress={() => navigation.navigate('Test')}>
+        <Pressable onPress={() => navigation.navigate('Test', {id: 1})}>
           <Text style={styles.headerTextTwo}>See All</Text>
         </Pressable>
       </View>

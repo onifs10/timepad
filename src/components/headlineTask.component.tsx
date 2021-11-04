@@ -4,26 +4,29 @@ import {View, Text, Pressable, StyleSheet} from 'react-native';
 import EllipseIcon from '../icons/ellipse.icon';
 import ForwardIcon from '../icons/forward.icon';
 import theme from '../theme';
+import {TaskType} from '../types/components.types';
 import {NavList} from '../types/navigation.types';
 
 export interface HeadlinePropTypes {
   navigation: NativeStackNavigationProp<NavList, 'Task'>;
+  task: TaskType;
 }
 
 const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
   navigation,
+  task,
 }) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.time}>00:32:10</Text>
-        <Pressable onPress={() => navigation.navigate('Test')}>
+        <Text style={styles.time}>{task.time}</Text>
+        <Pressable onPress={() => navigation.navigate('Test', {id: 1})}>
           <ForwardIcon />
         </Pressable>
       </View>
       <View style={styles.bottom}>
         <EllipseIcon />
-        <Text style={styles.bottomText}>Rasion Project</Text>
+        <Text style={styles.bottomText}>{task.name}</Text>
       </View>
     </View>
   );

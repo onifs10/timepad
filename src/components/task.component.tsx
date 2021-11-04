@@ -11,7 +11,7 @@ export interface TaskProps {
 }
 const Task: React.FC<PropsWithoutRef<TaskProps>> = ({task, navigate}) => {
   return (
-    <Pressable style={styles.container} onLongPress={() => navigate(task.id)}>
+    <Pressable style={styles.container} onPress={() => navigate(task.id)}>
       <View>
         <DesignIcon />
       </View>
@@ -30,7 +30,9 @@ const Task: React.FC<PropsWithoutRef<TaskProps>> = ({task, navigate}) => {
               </View>
             )}
           />
-          <PlayIcon />
+          <Pressable onPress={() => console.warn('test')}>
+            <PlayIcon />
+          </Pressable>
         </View>
       </View>
     </Pressable>
