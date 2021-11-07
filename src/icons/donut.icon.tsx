@@ -7,14 +7,14 @@ const DonutIcon: React.FC = ({}) => {
       <Circle cx={20} cy={20} r={15.915} fill="#fff" />
       <Path
         d={arc(20, 20, 15, 359)}
-        strokeWidth={3}
+        strokeWidth={1}
         stroke={'lightgray'}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d={arc(20, 20, 15, 39)}
-        strokeWidth={3.5}
+        d={arc(20, 20, 15, 320)}
+        strokeWidth={2.5}
         stroke="url(#prefix__paint0_radial_7:2098)"
         strokeLinecap="round"
         strokeLinejoin="round"
