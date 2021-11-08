@@ -8,6 +8,7 @@ const theme = {
   RubikSemiBold: 'Rubik-SemiBold',
   RubikMeduim: 'Rubik-Meduim',
   purple: '#9B51E0',
+  lightPurple: '#E9E9FF',
 };
 
 export default theme;

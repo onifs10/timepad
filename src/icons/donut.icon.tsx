@@ -1,19 +1,28 @@
 import React from 'react';
 import {Svg, Circle, Path, RadialGradient, Stop} from 'react-native-svg';
+import theme from '../theme';
 
-const DonutIcon: React.FC = ({}) => {
+export interface DonutIconProps {
+  color?: string;
+  percent?: number;
+}
+
+const DonutIcon: React.FC<React.PropsWithoutRef<DonutIconProps>> = ({
+  color = '#7012CE',
+  percent = 0,
+}) => {
   return (
     <Svg viewBox="0 0 40 40" width="100%" height="100%">
       <Circle cx={20} cy={20} r={15.915} fill="#fff" />
       <Path
         d={arc(20, 20, 15, 359)}
-        strokeWidth={1}
-        stroke={'lightgray'}
+        strokeWidth={2.5}
+        stroke={theme.lightPurple}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        d={arc(20, 20, 15, 320)}
+        d={arc(20, 20, 15, Math.min((percent / 100) * 360, 359))}
         strokeWidth={2.5}
         stroke="url(#prefix__paint0_radial_7:2098)"
         strokeLinecap="round"
@@ -27,7 +36,7 @@ const DonutIcon: React.FC = ({}) => {
         gradientUnits="userSpaceOnUse"
         gradientTransform="rotate(132.769 8.19 4.563) scale(16.3466)">
         <Stop stopColor="#fff" />
-        <Stop offset={1} stopColor={'#7012CE'} />
+        <Stop offset={1} stopColor={color} />
       </RadialGradient>
     </Svg>
   );
