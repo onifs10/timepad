@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import BottomNavigator from './screens/BottomTab.navigtor';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import theme from './theme';
@@ -14,7 +14,14 @@ const App = () => {
       style={{
         backgroundColor: theme.lightGray,
       }}>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            background: theme.lightGray,
+          },
+        }}>
         <RootStack.Navigator
           screenOptions={{
             headerShown: false,
@@ -22,7 +29,7 @@ const App = () => {
           <RootStack.Group>
             <RootStack.Screen name="App" component={BottomNavigator} />
           </RootStack.Group>
-          <RootStack.Group>
+          <RootStack.Group screenOptions={{presentation: 'modal'}}>
             <RootStack.Screen name="Test" component={TaskModalScreen} />
           </RootStack.Group>
         </RootStack.Navigator>
