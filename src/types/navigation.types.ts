@@ -3,4 +3,5 @@ export type NavList = {
   Analytics: undefined;
   Add: undefined;
   Test: {id: number};
+  App: undefined;
 };

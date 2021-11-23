@@ -22,7 +22,7 @@ const App = () => {
           <RootStack.Group>
             <RootStack.Screen name="App" component={BottomNavigator} />
           </RootStack.Group>
-          <RootStack.Group screenOptions={{presentation: 'transparentModal'}}>
+          <RootStack.Group>
             <RootStack.Screen name="Test" component={TaskModalScreen} />
           </RootStack.Group>
         </RootStack.Navigator>

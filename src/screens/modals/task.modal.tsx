@@ -6,12 +6,15 @@ import EllipseIcon from '../../icons/ellipse.icon';
 import DonutIcon from '../../icons/donut.icon';
 import PauseIcon from '../../icons/pause.icon';
 import QuitIcon from '../../icons/quit.icon';
-type modalProps = NativeStackScreenProps<{}>;
+import {NavList} from '../../types/navigation.types';
+type modalProps = NativeStackScreenProps<NavList>;
 const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.modal}>
-        <Pressable style={styles.back} onPress={() => navigation.goBack()}>
+        <Pressable
+          style={styles.back}
+          onPress={() => navigation.navigate('App')}>
           <View style={styles.dash} />
         </Pressable>
         <View style={styles.header}>
