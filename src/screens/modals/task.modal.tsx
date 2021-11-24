@@ -16,26 +16,35 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import {Dimensions} from 'react-native';
 import {PanGestureHandler} from 'react-native-gesture-handler';
+import Tag from '../../components/tag.component';
+import TimeContext from '../../contexts/time.context';
+
 type modalProps = NativeStackScreenProps<NavList>;
 const ReanimatedView = Reanimated.createAnimatedComponent(View);
 const windowHeight = Dimensions.get('window').height;
 
 const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
+  const {sub} = React.useContext(TimeContext);
   const [percentage, setPercentage] = React.useState(0);
+
   const translateY = useSharedValue(0);
+
+  // animation variables
   const animatedStyle = useAnimatedStyle(
     () => ({
       transform: [{translateY: translateY.value}],
     }),
     [],
   );
-
+  // function to navigate back
   const handleBack = () => {
     setTimeout(() => {
       navigation.navigate('App');
       translateY.value = withTiming(0);
-    }, 200);
+    }, 150);
   };
+
+  // gesture handler for dragindown to exit mmodall
   const onGestureEvent = useAnimatedGestureHandler(
     {
       onActive: evt => {
@@ -44,7 +53,7 @@ const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
         }
       },
       onEnd: evt => {
-        if (evt.translationY > 100) {
+        if (evt.translationY > 500 || evt.velocityY > 1000) {
           translateY.value = withTiming(windowHeight, {duration: 200});
           runOnJS(handleBack)();
         } else {
@@ -54,12 +63,18 @@ const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
     },
     [],
   );
+  
+  const updateTime = React.useCallback(() => {
+    console.warn('test');
+  }, []);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setPercentage(50);
-    }, 200);
-  }, []);
+    setPercentage(50);
+    const sub1 = sub(updateTime);
+    return () => {
+      sub1.release();
+    };
+  }, [sub, updateTime]);
 
   return (
     <PanGestureHandler
@@ -81,7 +96,7 @@ const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
           </Pressable>
           <View style={styles.header}>
             <Text style={styles.title}>Rasion Project</Text>
-            <Text style={styles.tag}>work</Text>
+            <Tag color={theme.purple}>work</Tag>
           </View>
           <View style={styles.category}>
             <EllipseIcon />

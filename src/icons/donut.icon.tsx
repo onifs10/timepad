@@ -7,41 +7,44 @@ export interface DonutIconProps {
   percent?: number;
 }
 
-const DonutIcon: React.FC<React.PropsWithoutRef<DonutIconProps>> = ({
-  color = '#7012CE',
-  percent = 0,
-}) => {
-  return (
-    <Svg viewBox="0 0 40 40" width="100%" height="100%">
-      <Circle cx={20} cy={20} r={15.915} fill="#fff" />
-      <Path
-        d={arc(20, 20, 15, 359)}
-        strokeWidth={2.5}
-        stroke={theme.lightPurple}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d={arc(20, 20, 15, Math.min((percent / 100) * 360, 359))}
-        strokeWidth={2.5}
-        stroke="url(#prefix__paint0_radial_7:2098)"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <RadialGradient
-        id="prefix__paint0_radial_7:2098"
-        cx={0}
-        cy={0}
-        r={1}
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="rotate(132.769 8.19 4.563) scale(16.3466)">
-        <Stop stopColor="#fff" />
-        <Stop offset={1} stopColor={color} />
-      </RadialGradient>
-    </Svg>
-  );
-};
-
+class DonutIcon extends React.Component<DonutIconProps> {
+  render() {
+    return (
+      <Svg viewBox="0 0 40 40" width="100%" height="100%">
+        <Circle cx={20} cy={20} r={15.915} fill="#fff" />
+        <Path
+          d={arc(20, 20, 15, 359)}
+          strokeWidth={2.5}
+          stroke={theme.lightPurple}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <Path
+          d={arc(
+            20,
+            20,
+            15,
+            Math.min(((this.props.percent ?? 0) / 100) * 360, 359),
+          )}
+          strokeWidth={2.5}
+          stroke="url(#prefix__paint0_radial_7:2098)"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <RadialGradient
+          id="prefix__paint0_radial_7:2098"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="rotate(132.769 8.19 4.563) scale(16.3466)">
+          <Stop stopColor="#fff" />
+          <Stop offset={1} stopColor={this.props.color || '#7012CE'} />
+        </RadialGradient>
+      </Svg>
+    );
+  }
+}
 const toCartesian = (x: number, y: number, radius: number, degrees: number) => {
   const radians = ((degrees - 90) * Math.PI) / 180.0;
 

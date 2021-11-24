@@ -4,6 +4,7 @@ import DesignIcon from '../icons/design.icon';
 import PlayIcon from '../icons/play.icon';
 import theme from '../theme';
 import {TaskType} from '../types/components.types';
+import Tag from './tag.component';
 
 export interface TaskProps {
   task: TaskType;
@@ -25,8 +26,8 @@ const Task: React.FC<PropsWithoutRef<TaskProps>> = ({task, navigate}) => {
             data={task.tags}
             horizontal={true}
             renderItem={({item}) => (
-              <View>
-                <Text style={styles.tag}>{item}</Text>
+              <View style={styles.tag}>
+                <Tag color={theme.purple}>{item}</Tag>
               </View>
             )}
           />
@@ -79,11 +80,6 @@ const styles = StyleSheet.create({
   },
   tag: {
     marginRight: 4,
-    borderRadius: 5,
-    paddingVertical: 2,
-    paddingHorizontal: 6,
-    color: theme.purple,
-    backgroundColor: '#F5EEFC',
   },
 });
 export default Task;
