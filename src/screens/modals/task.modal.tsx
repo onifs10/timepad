@@ -63,9 +63,9 @@ const TaskModalScreen: React.FC<modalProps> = ({navigation}) => {
     },
     [],
   );
-  
+
   const updateTime = React.useCallback(() => {
-    console.warn('test');
+    // console.warn('test');
   }, []);
 
   React.useEffect(() => {
