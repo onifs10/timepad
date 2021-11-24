@@ -1,5 +1,11 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {PropsWithoutRef, useContext, useEffect, useState} from 'react';
+import React, {
+  PropsWithoutRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import TimeContext from '../contexts/time.context';
 import EllipseIcon from '../icons/ellipse.icon';
@@ -24,7 +30,7 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
   );
   const [seconds, setseconds] = useState<number>(task.seconds);
 
-  const updateTime = () => {
+  const updateTime = useCallback(() => {
     setseconds(value => {
       if (value) {
         return value - 1;
@@ -32,7 +38,7 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
         return 0;
       }
     });
-  };
+  }, []);
 
   // track seconds
   useEffect(() => {
