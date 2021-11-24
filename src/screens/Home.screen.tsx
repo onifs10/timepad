@@ -15,6 +15,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 1000,
   };
 
   return (

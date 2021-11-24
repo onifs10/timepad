@@ -1,11 +1,13 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {PropsWithoutRef} from 'react';
+import React, {PropsWithoutRef, useContext, useEffect, useState} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
+import TimeContext from '../contexts/time.context';
 import EllipseIcon from '../icons/ellipse.icon';
 import ForwardIcon from '../icons/forward.icon';
 import theme from '../theme';
 import {TaskType} from '../types/components.types';
 import {NavList} from '../types/navigation.types';
+import {toHHMMSS} from '../utils/time.util';
 
 export interface HeadlinePropTypes {
   navigation: NativeStackNavigationProp<NavList, 'Task'>;
@@ -16,10 +18,42 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
   navigation,
   task,
 }) => {
+  const {sub} = useContext(TimeContext);
+  let [subscriptionObj, setSubObj] = useState<{release: () => void} | null>(
+    null,
+  );
+  const [seconds, setseconds] = useState<number>(task.seconds);
+
+  const updateTime = () => {
+    setseconds(value => {
+      if (value) {
+        return value - 1;
+      } else {
+        return 0;
+      }
+    });
+  };
+
+  // track seconds
+  useEffect(() => {
+    if (seconds <= 0) {
+      subscriptionObj?.release();
+    }
+  }, [seconds, subscriptionObj]);
+
+  useEffect(() => {
+    const subObj = sub(updateTime);
+    setSubObj(subObj);
+    return () => {
+      subscriptionObj?.release();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.time}>{task.time}</Text>
+        <Text style={styles.time}>{toHHMMSS(seconds)}</Text>
         <Pressable onPress={() => navigation.navigate('Test', {id: 1})}>
           <ForwardIcon />
         </Pressable>

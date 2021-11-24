@@ -16,36 +16,42 @@ const tasks: TaskType[] = [
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
   {
     id: 2,
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
   {
     id: 3,
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
   {
     id: 4,
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
   {
     id: 5,
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
   {
     id: 6,
     name: 'UI Design',
     tags: ['work', 'Rasion Project'],
     time: '00:32:10',
+    seconds: 10000,
   },
 ];
 

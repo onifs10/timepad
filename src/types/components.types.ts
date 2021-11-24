@@ -3,4 +3,5 @@ export type TaskType = {
   name: string;
   tags: string[];
   time: string;
+  seconds: number;
 };
