@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 10,
+    shadowColor: theme.lightPurple,
   },
   keyText: {
     color: 'white',
