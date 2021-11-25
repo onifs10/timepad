@@ -9,7 +9,8 @@ import React, {
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import TimeContext from '../contexts/time.context';
 import EllipseIcon from '../icons/ellipse.icon';
-import ForwardIcon from '../icons/forward.icon';
+import PauseIcon from '../icons/pause.icon';
+import PlayIcon from '../icons/play.icon';
 import theme from '../theme';
 import {TaskType} from '../types/components.types';
 import {NavList} from '../types/navigation.types';
@@ -29,6 +30,7 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
     null,
   );
   const [seconds, setseconds] = useState<number>(task.seconds);
+  const [play, setPlay] = useState<boolean>(false);
 
   const updateTime = useCallback(() => {
     setseconds(value => {
@@ -48,27 +50,35 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
   }, [seconds, subscriptionObj]);
 
   useEffect(() => {
-    const subObj = sub(updateTime);
-    setSubObj(subObj);
-    return () => {
+    if (play) {
+      const subObj = sub(updateTime);
+      setSubObj(subObj);
+      return () => {
+        subscriptionObj?.release();
+      };
+    } else {
       subscriptionObj?.release();
-    };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [play]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.time}>{toHHMMSS(seconds)}</Text>
-        <Pressable onPress={() => navigation.navigate('Test', {id: 1})}>
-          <ForwardIcon />
-        </Pressable>
+    <Pressable
+      onLongPress={() => navigation.navigate('Test', {id: 1})}
+      delayLongPress={500}>
+      <View style={styles.container}>
+        <View style={styles.top}>
+          <Text style={styles.time}>{toHHMMSS(seconds)}</Text>
+          <Pressable onPress={() => setPlay(v => !v)} style={styles.playButton}>
+            {play ? <PauseIcon fill={'white'} /> : <PlayIcon fill={'white'} />}
+          </Pressable>
+        </View>
+        <View style={styles.bottom}>
+          <EllipseIcon />
+          <Text style={styles.bottomText}>{task.name}</Text>
+        </View>
       </View>
-      <View style={styles.bottom}>
-        <EllipseIcon />
-        <Text style={styles.bottomText}>{task.name}</Text>
-      </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -105,6 +115,10 @@ const styles = StyleSheet.create({
     paddingLeft: 7,
     fontSize: 16,
     fontFamily: theme.RubikMeduim,
+  },
+  playButton: {
+    padding: 10,
+    borderRadius: 50,
   },
 });
 export default HeadlineTask;
