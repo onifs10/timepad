@@ -77,7 +77,7 @@ const BottomNav: React.FC<BottomTabBarProps> = ({
                 <AddIcon
                   stroke={theme.white}
                   fill={theme.primary}
-                  opacity={isFocused ? 1 : 0.8}
+                  isFocused={isFocused}
                 />
               </Pressable>
             );

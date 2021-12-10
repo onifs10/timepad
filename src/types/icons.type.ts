@@ -5,4 +5,5 @@ export interface IconProps {
   titleId?: string;
   opacity?: number;
   scale?: number;
+  isFocused?: boolean;
 }

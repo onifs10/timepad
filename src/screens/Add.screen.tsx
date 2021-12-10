@@ -1,16 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavList} from '../types/navigation.types';
-
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDecay,
+  withTiming,
+} from 'react-native-reanimated';
 import theme from '../theme';
 import PadKey from '../components/key.component';
 
 type AddProps = NativeStackScreenProps<NavList, 'Add'>;
+const AimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const Add: React.FC<AddProps> = () => {
   const [timeString, setTime] = useState<string>('000000');
   const [timeInput, setTimeInput] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
   const handleChange = (value: string | number) => {
     if (value === '0' || value === '00') {
@@ -19,8 +26,8 @@ const Add: React.FC<AddProps> = () => {
       }
     }
     if (value === 'C') {
-      setTimeInput(value => {
-        return value.substr(0, value.length - 1);
+      setTimeInput(time => {
+        return time.substring(0, time.length - 1);
       });
     } else {
       setTimeInput(old => {
@@ -34,30 +41,60 @@ const Add: React.FC<AddProps> = () => {
   const clearInput = () => {
     setTimeInput('');
   };
+
+  const animatedValue = useSharedValue(0.7);
+  const butttonStyle = useAnimatedStyle(() => {
+    return {
+      width: `${50 * animatedValue.value}%`,
+      height: 60 * animatedValue.value,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30,
+      backgroundColor: theme.primary,
+      opacity: animatedValue.value,
+    };
+  });
   useEffect(() => {
     setTime(
-      '0'.repeat(Math.max(6 - timeInput.length, 0)) + timeInput.substr(0, 6),
+      '0'.repeat(Math.max(6 - timeInput.length, 0)) + timeInput.substring(0, 6),
     );
   }, [timeInput]);
 
+  useEffect(() => {
+    if (name && +timeString) {
+      animatedValue.value = withTiming(1);
+    } else {
+      animatedValue.value = withTiming(0.7);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, timeString]);
   return (
     <View style={styles.pageStyle}>
+      <View>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Name"
+          value={name}
+          onChangeText={val => setName(val)}
+          placeholderTextColor={theme.primary}
+        />
+      </View>
       <View style={styles.timeShow}>
         <View style={styles.timeTextView}>
           <Text style={styles.timeText}>
-            {timeString.substr(0, 2)}
+            {timeString.substring(0, 2)}
             <Text style={styles.timeType}>hh</Text>
           </Text>
         </View>
         <View style={styles.timeTextView}>
           <Text style={styles.timeText}>
-            {timeString.substr(2, 2)}
+            {timeString.substring(2, 4)}
             <Text style={styles.timeType}>mm</Text>
           </Text>
         </View>
         <View style={styles.timeTextView}>
           <Text style={styles.timeText}>
-            {timeString.substr(4, 2)}
+            {timeString.substring(4, 6)}
             <Text style={styles.timeType}>ss</Text>
           </Text>
         </View>
@@ -89,6 +126,11 @@ const Add: React.FC<AddProps> = () => {
           />
         </View>
       </View>
+      <View style={styles.buttonView}>
+        <AimatedPressable style={butttonStyle}>
+          <Text style={styles.buttonText}>Add</Text>
+        </AimatedPressable>
+      </View>
     </View>
   );
 };
@@ -98,8 +140,21 @@ export default Add;
 const styles = StyleSheet.create({
   pageStyle: {
     backgroundColor: theme.lightGray,
-    flex: 1,
+    // flex: 1,
     paddingHorizontal: 40,
+    overflow: 'scroll',
+  },
+  textInput: {
+    width: '100%',
+    height: 60,
+    borderColor: theme.primary,
+    borderWidth: 1.5,
+    color: theme.primary,
+    fontFamily: theme.Rubik,
+    fontSize: 20,
+    borderRadius: 15,
+    padding: 10,
+    letterSpacing: 1,
   },
   timeShow: {
     paddingVertical: 20,
@@ -113,8 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
   pads: {
-    flex: 1,
-    // backgroundColor: 'red',
+    paddingBottom: 10,
   },
   keyRow: {
     paddingVertical: 10,
@@ -146,5 +200,15 @@ const styles = StyleSheet.create({
     fontFamily: theme.Rubik,
     padding: 0,
     margin: 0,
+  },
+  buttonView: {
+    width: '100%',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: theme.white,
+    fontFamily: theme.RubikSemiBold,
   },
 });

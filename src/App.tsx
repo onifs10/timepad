@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import BottomNavigator from './screens/BottomTab.navigtor';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -13,7 +13,6 @@ const ticker = new TickerClass();
 
 const RootStack = createNativeStackNavigator();
 const App = () => {
-
   return (
     <TimeContext.Provider value={{sub: ticker.subscribe}}>
       <SafeAreaProvider
