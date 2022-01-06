@@ -52,8 +52,8 @@ const PadKey: FC<PropsWithoutRef<PadKeyProp<string | number>>> = Props => {
 
 const styles = StyleSheet.create({
   key: {
-    width: 100,
-    height: 100,
+    width: 85,
+    height: 85,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',

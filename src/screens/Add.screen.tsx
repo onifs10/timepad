@@ -1,15 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavList} from '../types/navigation.types';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withDecay,
   withTiming,
 } from 'react-native-reanimated';
-import theme from '../theme';
 import PadKey from '../components/key.component';
+import theme from '../theme';
+import {Picker} from '@react-native-picker/picker';
 
 type AddProps = NativeStackScreenProps<NavList, 'Add'>;
 const AimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -18,6 +25,7 @@ const Add: React.FC<AddProps> = () => {
   const [timeString, setTime] = useState<string>('000000');
   const [timeInput, setTimeInput] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [selectedCategory, setCategory] = useState('default');
 
   const handleChange = (value: string | number) => {
     if (value === '0' || value === '00') {
@@ -69,16 +77,7 @@ const Add: React.FC<AddProps> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, timeString]);
   return (
-    <View style={styles.pageStyle}>
-      <View>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Name"
-          value={name}
-          onChangeText={val => setName(val)}
-          placeholderTextColor={theme.primary}
-        />
-      </View>
+    <ScrollView style={styles.pageStyle}>
       <View style={styles.timeShow}>
         <View style={styles.timeTextView}>
           <Text style={styles.timeText}>
@@ -126,18 +125,52 @@ const Add: React.FC<AddProps> = () => {
           />
         </View>
       </View>
+      <View style={styles.nameView}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Name"
+          value={name}
+          onChangeText={val => setName(val)}
+          placeholderTextColor={theme.primary}
+        />
+      </View>
+      <View style={styles.picker}>
+        <Picker
+          mode="dropdown"
+          dropdownIconColor={theme.primary}
+          dropdownIconRippleColor={theme.lightPurple}
+          style={{
+            color: theme.primary,
+          }}
+          onValueChange={(value, _) => {
+            setCategory(value as string);
+          }}
+          selectedValue={selectedCategory}>
+          <Picker.Item label="Default" value="default" />
+          <Picker.Item label="Work" value="others" />
+          <Picker.Item label="Workout" value="workout" />
+          <Picker.Item label="Others" value="others" />
+        </Picker>
+      </View>
       <View style={styles.buttonView}>
         <AimatedPressable style={butttonStyle}>
           <Text style={styles.buttonText}>Add</Text>
         </AimatedPressable>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 export default Add;
 
 const styles = StyleSheet.create({
+  picker: {
+    borderWidth: 1.5,
+    borderColor: theme.primary,
+    borderRadius: 15,
+    fontFamily: theme.Rubik,
+    marginBottom: 10,
+  },
   pageStyle: {
     backgroundColor: theme.lightGray,
     // flex: 1,
@@ -206,9 +239,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: 20,
   },
   buttonText: {
     color: theme.white,
     fontFamily: theme.RubikSemiBold,
+  },
+  nameView: {
+    marginBottom: 10,
   },
 });
