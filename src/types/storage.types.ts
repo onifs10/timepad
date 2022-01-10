@@ -8,5 +8,5 @@ export interface TASK {
   id: string;
   name: string;
   time: string;
-  catgeory: CATEGORY;
+  category: CATEGORY;
 }

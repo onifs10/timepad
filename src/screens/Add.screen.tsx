@@ -69,7 +69,7 @@ const Add: React.FC<AddProps> = () => {
           id: uuid.v4() as string,
           name,
           time: timeInsec.toString(),
-          catgeory: selectedCategory,
+          category: selectedCategory,
         };
         await addTask(task);
 

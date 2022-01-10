@@ -2,71 +2,72 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {PropsWithoutRef} from 'react';
 import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import theme from '../theme';
-import {TaskType} from '../types/components.types';
 import {NavList} from '../types/navigation.types';
 import Task from './task.component';
+import {useAppContext} from '../contexts/storage.context';
 
 export interface TodayTasksProps {
   navigation: NativeStackNavigationProp<NavList, 'Task'>;
 }
 
-const tasks: TaskType[] = [
-  {
-    id: 1,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-  {
-    id: 2,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-  {
-    id: 3,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-  {
-    id: 4,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-  {
-    id: 5,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-  {
-    id: 6,
-    name: 'UI Design',
-    tags: ['work', 'Rasion Project'],
-    time: '00:32:10',
-    seconds: 10000,
-  },
-];
+// const tasks: TaskType[] = [
+//   {
+//     id: 1,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+//   {
+//     id: 2,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+//   {
+//     id: 3,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+//   {
+//     id: 4,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+//   {
+//     id: 5,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+//   {
+//     id: 6,
+//     name: 'UI Design',
+//     tags: ['work', 'Rasion Project'],
+//     time: '00:32:10',
+//     seconds: 10000,
+//   },
+// ];
 
 const TodayTasks: React.FC<PropsWithoutRef<TodayTasksProps>> = ({
   navigation,
 }) => {
-  const handleNavigation = (id: number) => {
+  const handleNavigation = (id: string) => {
     navigation.navigate('Test', {id});
   };
+  const {tasks} = useAppContext();
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTextOne}>Today</Text>
-        <Pressable onPress={() => navigation.navigate('Test', {id: 1})}>
+        <Pressable onPress={() => navigation.navigate('Test', {id: '1'})}>
           <Text style={styles.headerTextTwo}>See All</Text>
         </Pressable>
       </View>

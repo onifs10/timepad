@@ -64,7 +64,7 @@ const HeadlineTask: React.FC<PropsWithoutRef<HeadlinePropTypes>> = ({
 
   return (
     <Pressable
-      onLongPress={() => navigation.navigate('Test', {id: 1})}
+      onLongPress={() => navigation.navigate('Test', {id: '1'})}
       delayLongPress={500}>
       <View style={styles.container}>
         <View style={styles.top}>

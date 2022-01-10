@@ -3,12 +3,13 @@ import {Pressable, StyleSheet, View, Text, FlatList} from 'react-native';
 import DesignIcon from '../icons/design.icon';
 import PlayIcon from '../icons/play.icon';
 import theme from '../theme';
-import {TaskType} from '../types/components.types';
+import {TASK} from '../types/storage.types';
 import Tag from './tag.component';
+import {toHHMMSS} from '../utils/time.util';
 
 export interface TaskProps {
-  task: TaskType;
-  navigate: (taskid: number) => void;
+  task: TASK;
+  navigate: (taskid: string) => void;
 }
 const Task: React.FC<PropsWithoutRef<TaskProps>> = ({task, navigate}) => {
   return (
@@ -19,11 +20,11 @@ const Task: React.FC<PropsWithoutRef<TaskProps>> = ({task, navigate}) => {
       <View style={styles.left}>
         <View style={styles.leftTopBotom}>
           <Text style={styles.taskName}>{task.name}</Text>
-          <Text style={styles.time}>{task.time}</Text>
+          <Text style={styles.time}>{toHHMMSS(+task.time)}</Text>
         </View>
         <View style={[styles.leftTopBotom, styles.leftBottom]}>
           <FlatList
-            data={task.tags}
+            data={[task.category]}
             horizontal={true}
             renderItem={({item}) => (
               <View style={styles.tag}>
