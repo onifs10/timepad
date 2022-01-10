@@ -17,6 +17,9 @@ import Animated, {
 import PadKey from '../components/key.component';
 import theme from '../theme';
 import {Picker} from '@react-native-picker/picker';
+import {CATEGORY, TASK} from '../types/storage.types';
+import {useAppContext} from '../contexts/storage.context';
+import uuid from 'react-native-uuid';
 
 type AddProps = NativeStackScreenProps<NavList, 'Add'>;
 const AimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -25,7 +28,8 @@ const Add: React.FC<AddProps> = () => {
   const [timeString, setTime] = useState<string>('000000');
   const [timeInput, setTimeInput] = useState<string>('');
   const [name, setName] = useState<string>('');
-  const [selectedCategory, setCategory] = useState('default');
+  const [selectedCategory, setCategory] = useState<CATEGORY>();
+  const {addTask} = useAppContext();
 
   const handleChange = (value: string | number) => {
     if (value === '0' || value === '00') {
@@ -50,6 +54,36 @@ const Add: React.FC<AddProps> = () => {
     setTimeInput('');
   };
 
+  const handleAddtask = async () => {
+    try {
+      if (name && +timeInput && selectedCategory) {
+        const [hours, minutes, secs] = [
+          timeString.substring(0, 2),
+          timeString.substring(2, 4),
+          timeString.substring(4, 6),
+        ];
+
+        const timeInsec = +hours * 3600 + +minutes * 60 + +secs;
+        console.warn(timeInsec);
+        const task: TASK = {
+          id: uuid.v4() as string,
+          name,
+          time: timeInsec.toString(),
+          catgeory: selectedCategory,
+        };
+        await addTask(task);
+
+        setName('');
+        setCategory(undefined);
+        setTimeInput('');
+      } else {
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const animatedValue = useSharedValue(0.7);
   const butttonStyle = useAnimatedStyle(() => {
     return {
@@ -69,13 +103,13 @@ const Add: React.FC<AddProps> = () => {
   }, [timeInput]);
 
   useEffect(() => {
-    if (name && +timeString) {
+    if (name && +timeInput && selectedCategory) {
       animatedValue.value = withTiming(1);
     } else {
       animatedValue.value = withTiming(0.7);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, timeString]);
+  }, [name, timeString, selectedCategory]);
   return (
     <ScrollView style={styles.pageStyle}>
       <View style={styles.timeShow}>
@@ -143,17 +177,20 @@ const Add: React.FC<AddProps> = () => {
             color: theme.primary,
           }}
           onValueChange={(value, _) => {
-            setCategory(value as string);
+            setCategory(value);
           }}
           selectedValue={selectedCategory}>
-          <Picker.Item label="Default" value="default" />
-          <Picker.Item label="Work" value="others" />
-          <Picker.Item label="Workout" value="workout" />
-          <Picker.Item label="Others" value="others" />
+          <Picker.Item label="Select a category" />
+          <Picker.Item label="Work" value={CATEGORY.WORK} />
+          <Picker.Item label="Workout" value={CATEGORY.WORKOUT} />
+          <Picker.Item label="Others" value={CATEGORY.OTHERS} />
         </Picker>
       </View>
       <View style={styles.buttonView}>
-        <AimatedPressable style={butttonStyle}>
+        <AimatedPressable
+          style={butttonStyle}
+          disabled={!(name && +timeString && selectedCategory)}
+          onPress={handleAddtask}>
           <Text style={styles.buttonText}>Add</Text>
         </AimatedPressable>
       </View>

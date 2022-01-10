@@ -8,39 +8,42 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TaskModalScreen from './screens/modals/task.modal';
 import TimeContext from './contexts/time.context';
 import TickerClass from './utils/time.util';
+import {AppProvider} from './contexts/storage.context';
 
 const ticker = new TickerClass();
 
 const RootStack = createNativeStackNavigator();
 const App = () => {
   return (
-    <TimeContext.Provider value={{sub: ticker.subscribe}}>
-      <SafeAreaProvider
-        style={{
-          backgroundColor: theme.lightGray,
-        }}>
-        <NavigationContainer
-          theme={{
-            ...DefaultTheme,
-            colors: {
-              ...DefaultTheme.colors,
-              background: theme.lightGray,
-            },
+    <AppProvider>
+      <TimeContext.Provider value={{sub: ticker.subscribe}}>
+        <SafeAreaProvider
+          style={{
+            backgroundColor: theme.lightGray,
           }}>
-          <RootStack.Navigator
-            screenOptions={{
-              headerShown: false,
+          <NavigationContainer
+            theme={{
+              ...DefaultTheme,
+              colors: {
+                ...DefaultTheme.colors,
+                background: theme.lightGray,
+              },
             }}>
-            <RootStack.Group>
-              <RootStack.Screen name="App" component={BottomNavigator} />
-            </RootStack.Group>
-            <RootStack.Group screenOptions={{presentation: 'modal'}}>
-              <RootStack.Screen name="Test" component={TaskModalScreen} />
-            </RootStack.Group>
-          </RootStack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </TimeContext.Provider>
+            <RootStack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}>
+              <RootStack.Group>
+                <RootStack.Screen name="App" component={BottomNavigator} />
+              </RootStack.Group>
+              <RootStack.Group screenOptions={{presentation: 'modal'}}>
+                <RootStack.Screen name="Test" component={TaskModalScreen} />
+              </RootStack.Group>
+            </RootStack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </TimeContext.Provider>
+    </AppProvider>
   );
 };
 
